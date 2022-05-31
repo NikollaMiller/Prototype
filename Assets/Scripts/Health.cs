@@ -6,6 +6,10 @@ public class Health : MonoBehaviour, IHealth
 
     public float m_Health { get; set;}
 
+    public int itsBossIndex = 0;
+
+    public float m_ItsBossIndex => itsBossIndex;
+
     private void Start()
     {
         SetHealth(health);
@@ -23,6 +27,10 @@ public class Health : MonoBehaviour, IHealth
 
     public void TakeDamage(float Damage)
     {
-        
+        m_Health -= Damage;
+        if (m_Health < 0)
+        {
+            Die();
+        }
     }
 }

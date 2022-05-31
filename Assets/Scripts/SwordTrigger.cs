@@ -9,7 +9,7 @@ public class SwordTrigger : MonoBehaviour
         m_Damagemaker = GetComponent<IDamageble>();
     }
 
-    private void nTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         m_Damagemaker.MakeDamage(other);
     }

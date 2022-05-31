@@ -2,14 +2,23 @@ using UnityEngine;
 
 public class SwordDamage : MonoBehaviour, IDamageble
 {
-    public float Damage => 1;
+    public float damage;
+
+    public float Damage => damage;
 
     public void MakeDamage(Collider other)
     {
         IHealth health = other.GetComponent<IHealth>();
         if (health != null)
         {
-            health.TakeDamage(Damage);
+            if (health.m_ItsBossIndex == 1)
+            {
+
+            } 
+            else
+            {
+                health.TakeDamage(Damage);
+            }
         }
     }
 }
