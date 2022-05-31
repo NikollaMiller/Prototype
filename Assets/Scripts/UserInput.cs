@@ -7,7 +7,7 @@ public class UserInput : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, 
 
     public static UserInput instance { get; set; }
 
-    private bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
+    private bool tap, swipeLeft, swipeRight, swipeUp, swipeDown, swipetoplefttorghtdown, swipeTopRightToLeftDown, swipeDownLeftToRightTop, swipeDownRightToLeftTop;
     private Vector2 swipeDelta, startTouch;
 
     public bool Tap { get { return tap; } }
@@ -16,6 +16,11 @@ public class UserInput : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, 
     public bool SwipeRight { get { return swipeRight; } }
     public bool SwipeUp { get { return swipeUp; } }
     public bool SwipeDown { get { return swipeDown; } }
+
+    public bool SwipeTopLeftToRightDown { get { return swipetoplefttorghtdown; } }
+    public bool SwipeTopRightToLeftDown { get { return swipeTopRightToLeftDown; } }
+    public bool SwipeDownLeftToRightTop { get { return swipeDownLeftToRightTop; } }
+    public bool SwipeDownRightToLeftTop { get { return swipeDownRightToLeftTop; } }
 
     private void Awake()
     {
@@ -31,38 +36,11 @@ public class UserInput : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, 
         if (swipeDelta.magnitude > DEADZONE)
         {
             // Cool swipe
+           
             float x = swipeDelta.x;
             float y = swipeDelta.y;
-
-            if (Mathf.Abs(x) > Mathf.Abs(y))
-            {
-                // Left or Right
-                if (x < 0)
-                {
-                    // Left
-                    swipeLeft = true;
-                }
-                else
-                {
-                    // Right
-                    swipeRight = true;
-                }
-            }
-            else
-            {
-                // Up or Down
-                if (y < 0)
-                {
-                    // Down
-                    swipeDown = true;
-                }
-                else
-                {
-                    // Up
-                    swipeUp = true;
-                }
-            }
-
+            Debug.Log("X : " + x + " \n " + "Y : " + y);
+            
             startTouch = swipeDelta = Vector2.zero;
         }
         
@@ -73,11 +51,6 @@ public class UserInput : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, 
     public void OnPointerUp(PointerEventData eventData)
     {
         startTouch = swipeDelta = Vector2.zero;
-        Vector2 vector = new Vector2(0, 1);
-        Debug.Log(180 * Mathf.Acos((swipeDelta.x * Vector2.up.x) + (swipeDelta.y * Vector2.up.y) / Mathf.Sqrt(Mathf.Pow(swipeDelta.x, 2) + Mathf.Pow(swipeDelta.y, 2))));
-        Debug.Log(vector);
-        Debug.Log("Pochti Gandon " + (90f - Vector2.Angle(vector, swipeDelta)));
-        Debug.Log("Gandon " + (90f - Vector2.Angle(swipeDelta, vector)));
     }
 
     public void OnPointerDown(PointerEventData eventData)
